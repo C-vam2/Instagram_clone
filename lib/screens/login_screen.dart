@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
+import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
 import '../utils/colors.dart';
@@ -14,11 +16,26 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void loginUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMehods().loginUser(
+        email: _emailController.text, password: _passwordController.text);
+    setState(() {
+      _isLoading = false;
+    });
+    if (res != 'success') {
+      showSnackbar(res, context);
+    }
   }
 
   @override
@@ -51,19 +68,25 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 24),
               InkWell(
-                onTap: () {},
-                child: Container(
-                  child: Text("Log in"),
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: ShapeDecoration(
-                    color: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                    ),
-                  ),
-                ),
+                onTap: loginUser,
+                child: _isLoading == true
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          color: primaryColor,
+                        ),
+                      )
+                    : Container(
+                        child: Text("Log in"),
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: ShapeDecoration(
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                          ),
+                        ),
+                      ),
               ),
               Flexible(
                 child: Container(),

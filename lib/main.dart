@@ -8,19 +8,28 @@ import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/screens/signup_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 
-void main() {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // if (kIsWeb) {
-  //   await Firebase.initializeApp(
-  //     options: const FirebaseOptions(
-  //         apiKey: "AIzaSyDiOMZXQYfqtFSUNZZkEoGfuYUXKHKCXxk",
-  //         appId: "1:730091539662:web:cf9cdec8be1cebfaa3549f",
-  //         messagingSenderId: "730091539662",
-  //         projectId: "instagram-clone-e400a"),
-  //   );
-  // } else {
-  //   await Firebase.initializeApp();
-  // }
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyC_5E549ltNA8lHnY5Kz74iAlYBB5OpKLc",
+        appId: "1:214050553128:web:fb8cfe488973594be6e41d",
+        messagingSenderId: "214050553128",
+        projectId: "instagram-clone-56e82",
+        storageBucket: "instagram-clone-56e82.appspot.com",
+      ),
+    );
+  } else {
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+      apiKey: "AIzaSyBbgGcLRu5JyQsuKQZep3Xh5sAkWGQz-fE",
+      appId: "1:214050553128:android:a560301af79c6138e6e41d",
+      messagingSenderId: "214050553128",
+      projectId: "instagram-clone-56e82",
+      storageBucket: "instagram-clone-56e82.appspot.com",
+    ));
+  }
   runApp(const MyApp());
 }
 
