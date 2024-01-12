@@ -7,6 +7,9 @@ import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_screeen_layout.dart';
 import '../utils/colors.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -40,11 +43,15 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
+  void navigateToLogin() {
+    Navigator.of(context).pop();
+  }
+
   void signUpUser() async {
     setState(() {
       _isLoading = true;
     });
-    String res = await AuthMehods().signUpUser(
+    String res = await AuthMethods().signUpUser(
         email: _emailController.text,
         password: _passwordController.text,
         username: _usernameController.text,
@@ -55,6 +62,16 @@ class _SignupScreenState extends State<SignupScreen> {
     });
     if (res != 'success') {
       showSnackbar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => Scaffold(
+            body: ResponsiveLayout(
+                mobileScreenLayout: MobileScreenLayout(),
+                webScreenLayout: WebScreenLayout()),
+          ),
+        ),
+      );
     }
   }
 
@@ -161,15 +178,15 @@ class _SignupScreenState extends State<SignupScreen> {
                     child: Text("Already Signed up? "),
                     padding: EdgeInsets.symmetric(vertical: 8),
                   ),
-                  GestureDetector(
-                    onTap: () {},
+                  InkWell(
+                    onTap: navigateToLogin,
                     child: Container(
-                      child: Text(
+                      padding: EdgeInsets.symmetric(vertical: 8),
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),
                       ),
-                      padding: EdgeInsets.symmetric(vertical: 8),
                     ),
                   )
                 ],
