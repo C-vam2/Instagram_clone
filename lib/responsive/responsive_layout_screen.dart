@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/utils/global_variables.dart';
+import 'package:instagram_clone/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:instagram_clone/models/user.dart' as model;
-
-import '../providers/user_provider.dart';
 
 class ResponsiveLayout extends StatefulWidget {
   final Widget webScreenLayout;
@@ -21,7 +19,6 @@ class ResponsiveLayout extends StatefulWidget {
 class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     addData();
   }
